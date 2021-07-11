@@ -7,15 +7,34 @@
 		</style>
 	</head>
 	<body>
-		<form>
+		<script>
+			function Submission(){
+				console.log(event, "----------------------------------")
+				CreateTask({ name: event.target.elements["title"].value, dueDate: event.target.elements["dueDate"].value} )
+				event.preventDefault();
+			}
+
+			function CreateTask({name, dueDate}) {
+				const id = Math.random().toString().substr(2);
+				const record = {id, name, dueDate};
+
+				const tasks = JSON.parse(localStorage.getItem('tasks') || JSON.stringify([]));
+
+				tasks.push(record);
+
+				window.localStorage.setItem('tasks', JSON.stringify(tasks));
+			}
+
+			function EditTask() {}
+			function DeleteTask() {}
+
+			(function(window) {
+			})(window);
+		</script>
+		<form name="task" onsubmit="return Submission();">
 			<input type="text" name="title" />
 			<input type="datetime-local" name="dueDate" />
 			<button type="submit">Submit</button>
 		</form>
-		<script>
-			(function(window) {
-						})(window);
-		</script>
-		
 	</body>
 </html>
