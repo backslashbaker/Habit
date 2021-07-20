@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<script>
-			function Submission(){
+			function CreateTaskFormSubmission(){
 				console.log(event, "----------------------------------")
 				CreateTask({ name: event.target.elements["title"].value, dueDate: event.target.elements["dueDate"].value} )
 				event.preventDefault();
@@ -26,14 +26,49 @@
 			}
 
 			function EditTask() {}
-			function DeleteTask() {}
+
+			function DeleteTaskFormSubmission(){
+				// Get the id from the form
+				const taskId = event.target.elements["id"].value
+				// call DeleteTask({id}) 
+				DeleteTask(taskId)
+				event.preventDefault();
+			}
+			function DeleteTask(id) {
+				const submittedId = id
+				
+				// get the tasks array from local storage
+				// convert the local storage output from json string to array
+				const tasks = JSON.parse(localStorage.getItem('tasks') || JSON.stringify([]));
+				// search the array for task with the id Array.findIndex	
+				function search(id, array){
+					for (var i=0; i < array.length; i++) {
+						if (array[i].id === id) {
+							return i
+						}
+					}
+				}
+
+				var resultObject = search(id, tasks)
+				// remove the task from the array slice or splice
+				tasks.splice(resultObject, 1)
+				// convert the array to json
+				console.log(tasks)
+				// store the json in localstorage
+				window.localStorage.setItem('tasks', JSON.stringify(tasks))
+			}
 
 			(function(window) {
 			})(window);
 		</script>
-		<form name="task" onsubmit="return Submission();">
+		<form name="task" onsubmit="return CreateTaskFormSubmission();">
 			<input type="text" name="title" />
 			<input type="datetime-local" name="dueDate" />
+			<button type="submit">Submit</button>
+		</form>
+
+		<form name="task-delete" onsubmit="return DeleteTaskFormSubmission();">
+			<input type="text" name="id" value="9407569021132443" />
 			<button type="submit">Submit</button>
 		</form>
 	</body>
