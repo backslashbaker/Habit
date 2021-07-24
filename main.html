@@ -35,26 +35,20 @@
 				event.preventDefault();
 			}
 			function DeleteTask(id) {
-				const submittedId = id
-				
 				// get the tasks array from local storage
 				// convert the local storage output from json string to array
 				const tasks = JSON.parse(localStorage.getItem('tasks') || JSON.stringify([]));
-				// search the array for task with the id Array.findIndex	
-				function search(id, array){
-					for (var i=0; i < array.length; i++) {
-						if (array[i].id === id) {
-							return i
-						}
-					}
-				}
 
-				var resultObject = search(id, tasks)
-				// remove the task from the array slice or splice
-				tasks.splice(resultObject, 1)
-				// convert the array to json
-				// store the json in localstorage
-				window.localStorage.setItem('tasks', JSON.stringify(tasks))
+				// search the array for task with the id Array.findIndex	
+				const indexOfTask = tasks.findIndex(task => task.id === id)
+
+				if (indexOfTask !== -1)  {
+					// remove the task from the array slice or splice
+					tasks.splice(indexOfTask, 1)
+					// convert the array to json
+					// store the json in localstorage
+					window.localStorage.setItem('tasks', JSON.stringify(tasks))
+				}
 			}
 
 			(function(window) {
