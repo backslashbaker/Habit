@@ -10,19 +10,20 @@
 		<script>
 			function CreateTaskFormSubmission(){
 				console.log(event, "----------------------------------")
-				CreateTask({ name: event.target.elements["title"].value, dueDate: event.target.elements["dueDate"].value} )
+				CreateTask({ title: event.target.elements["title"].value, dueDate: event.target.elements["dueDate"].value} )
 				event.preventDefault();
 			}
 
-			function CreateTask({name, dueDate}) {
+			function CreateTask({title, dueDate}) {
 				const id = Math.random().toString().substr(2);
-				const record = {id, name, dueDate};
+				const record = {id, title, dueDate};
 
 				const tasks = JSON.parse(localStorage.getItem('tasks') || JSON.stringify([]));
 
 				tasks.push(record);
 
 				window.localStorage.setItem('tasks', JSON.stringify(tasks));
+				RenderTasks();
 			}
 
 			function EditTask() {}
@@ -34,6 +35,15 @@
 				DeleteTask(taskId)
 				event.preventDefault();
 			}
+
+			function DeleteTaskSubmission(){
+				// Get the id from the task template that has been rendered.
+				const taskId = event.target;
+				// call DeleteTask({id}) 
+				DeleteTask(taskId)
+				event.preventDefault();
+			}
+
 			function DeleteTask(id) {
 				// get the tasks array from local storage
 				// convert the local storage output from json string to array
@@ -51,8 +61,29 @@
 				}
 			}
 
-			(function(window) {
-			})(window);
+			function RenderTasks() {
+				const tasks = JSON.parse(localStorage.getItem('tasks') || JSON.stringify([]));
+				const container = document.getElementById("tasks-container");
+				const template = document.getElementById("task-template");
+
+				while(container.firstChild) {container.removeChild(container.firstChild)}
+
+				tasks.forEach(task => {
+					const thisTaskTemplate = template.cloneNode(true);
+
+					thisTaskTemplate.querySelector("[data-var=id]").innerHTML = task.id;
+					thisTaskTemplate.querySelector("[data-var=title]").innerHTML = task.title;
+					thisTaskTemplate.querySelector("[data-var=date]").innerHTML = (new Date(task.dueDate)).toLocaleString();
+					
+
+					container.appendChild(thisTaskTemplate);
+				});
+			}
+
+			document.addEventListener("DOMContentLoaded", function(event) {
+				RenderTasks();
+			});
+
 		</script>
 		<form name="task" onsubmit="return CreateTaskFormSubmission();">
 			<input type="text" name="title" />
@@ -64,5 +95,16 @@
 			<input type="text" name="id" value="9407569021132443" />
 			<button type="submit">Delete</button>
 		</form>
+
+		<div id="tasks-container"></div>
+
+		<div id="task-template">
+			<p data-var="id"></p>
+			<strong data-var="title"></strong>
+			<p data-var="date"></p>
+			<!-- use a button (non-submit) to trigger DeleteTaskSubmission
+				 the button html element will be event.target
+				-->
+		</div>
 	</body>
 </html>
