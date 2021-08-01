@@ -4,6 +4,9 @@
 		<title></title>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
 		<style>
+			#template-container{
+				display:none;
+			}
 		</style>
 	</head>
 	<body>
@@ -37,10 +40,7 @@
 			}
 
 			function DeleteTaskSubmission(){
-				// Get the id from the task template that has been rendered.
-				const taskId = event.target;
-				// call DeleteTask({id}) 
-				DeleteTask(taskId)
+				DeleteTask(event.target.parentNode.querySelector("[data-var=id]").innerHTML)
 				event.preventDefault();
 			}
 
@@ -59,6 +59,7 @@
 					// store the json in localstorage
 					window.localStorage.setItem('tasks', JSON.stringify(tasks))
 				}
+				RenderTasks();
 			}
 
 			function RenderTasks() {
@@ -70,7 +71,7 @@
 
 				tasks.forEach(task => {
 					const thisTaskTemplate = template.cloneNode(true);
-
+					thisTaskTemplate.removeAttribute("id")
 					thisTaskTemplate.querySelector("[data-var=id]").innerHTML = task.id;
 					thisTaskTemplate.querySelector("[data-var=title]").innerHTML = task.title;
 					thisTaskTemplate.querySelector("[data-var=date]").innerHTML = (new Date(task.dueDate)).toLocaleString();
@@ -97,14 +98,16 @@
 		</form>
 
 		<div id="tasks-container"></div>
-
+	<div id="template-container">
 		<div id="task-template">
 			<p data-var="id"></p>
 			<strong data-var="title"></strong>
 			<p data-var="date"></p>
+			<button type="button" onclick="return DeleteTaskSubmission();">delete</button>
 			<!-- use a button (non-submit) to trigger DeleteTaskSubmission
 				 the button html element will be event.target
 				-->
 		</div>
+	</div>
 	</body>
 </html>
