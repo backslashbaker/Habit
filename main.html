@@ -29,7 +29,20 @@
 				RenderTasks();
 			}
 
-			function EditTask() {}
+			function EditRenderTaskForm(){
+				console.log(new Date(event.target.parentNode.querySelector("[data-var=date]").innerHTML))
+				document.querySelector("form[name=task-edit]").elements["id"].value = event.target.parentNode.querySelector("[data-var=id]").innerHTML
+				document.querySelector("form[name=task-edit]").elements["title"].value = event.target.parentNode.querySelector("[data-var=title]").innerHTML
+				document.querySelector("form[name=task-edit]").elements["date"].value = event.target.parentNode.querySelector("[data-var=date]").innerHTML
+			}
+
+			function EditTaskFormSubmission(){
+
+			}
+
+			function EditTask() {
+
+			}
 
 			function DeleteTaskFormSubmission(){
 				// Get the id from the form
@@ -71,11 +84,11 @@
 
 				tasks.forEach(task => {
 					const thisTaskTemplate = template.cloneNode(true);
+
 					thisTaskTemplate.removeAttribute("id")
 					thisTaskTemplate.querySelector("[data-var=id]").innerHTML = task.id;
 					thisTaskTemplate.querySelector("[data-var=title]").innerHTML = task.title;
 					thisTaskTemplate.querySelector("[data-var=date]").innerHTML = (new Date(task.dueDate)).toLocaleString();
-					
 
 					container.appendChild(thisTaskTemplate);
 				});
@@ -86,9 +99,16 @@
 			});
 
 		</script>
-		<form name="task" onsubmit="return CreateTaskFormSubmission();">
+		<form name="task-create" onsubmit="return CreateTaskFormSubmission();">
 			<input type="text" name="title" />
 			<input type="datetime-local" name="dueDate" />
+			<button type="submit">Submit</button>
+		</form>
+
+		<form name="task-edit" onsubmit="return EditTaskFormSubmission();">
+			<input type="text" name="title" />
+			<input type="datetime-local" name="dueDate" />
+			<input type="hidden" name="id" />
 			<button type="submit">Submit</button>
 		</form>
 
@@ -104,6 +124,7 @@
 			<strong data-var="title"></strong>
 			<p data-var="date"></p>
 			<button type="button" onclick="return DeleteTaskSubmission();">delete</button>
+			<button type="button" onclick="return EditRenderTaskForm();">edit</button>
 			<!-- use a button (non-submit) to trigger DeleteTaskSubmission
 				 the button html element will be event.target
 				-->
