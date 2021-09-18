@@ -8,6 +8,11 @@ variable "environment" {
   default = "production"
 }
 
+variable "aws-region" {
+  type = string
+  default = "eu-west-2"
+}
+
 locals {
   application-slug = "${var.application}-${var.environment}"
 }
