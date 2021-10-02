@@ -10,7 +10,8 @@ jobs:
           node-version: 14
           cache: npm
       - run: npm install
-      - run: npm run test:e2e
+      - run: npm run test:e2e:serve-files &
+      - run: npm run test:e2e:cypress-run
 
   deploy:
     runs-on: ubuntu-latest
