@@ -1,0 +1,28 @@
+{
+  "name": "habit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:e2e:serve-files": "http-server",
+    "test:e2e:cypress-run": "cypress open",
+    "test:e2e": "concurrently --kill-others \"npm run test:e2e:serve-files\" \"npm run test:e2e:cypress-run\" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/backslashbaker/Habit.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/backslashbaker/Habit/issues"
+  },
+  "homepage": "https://github.com/backslashbaker/Habit#readme",
+  "devDependencies": {
+    "concurrently": "^6.3.0",
+    "cypress": "^8.5.0",
+    "http-server": "^13.0.2"
+  }
+}
