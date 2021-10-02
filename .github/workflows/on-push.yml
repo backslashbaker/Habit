@@ -9,8 +9,8 @@ jobs:
         with:
           node-version: 14
           cache: npm
-      - runs: npm install
-      - runs: npm run test:e2e
+      - run: npm install
+      - run: npm run test:e2e
 
   deploy:
     runs-on: ubuntu-latest
