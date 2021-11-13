@@ -173,10 +173,13 @@
     </form>
 
     <form name="task-edit" onsubmit="return EditTaskFormSubmission();">
-      <input type="text" name="title" />
-      <input type="datetime-local" name="dueDate" />
-      <input type="hidden" name="id" />
-      <button type="submit">Submit</button>
+      <fieldset>
+        <legend>Edit a task</legend>
+        <input type="text" name="title" />
+        <input type="datetime-local" name="dueDate" />
+        <input type="hidden" name="id" />
+        <button type="submit">Submit</button>
+      </fieldset>
     </form>
 
     <div id="tasks-container"></div>
