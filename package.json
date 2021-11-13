@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1",
     "test:e2e:serve-files": "http-server",
     "test:e2e:cypress-run": "cypress run",
