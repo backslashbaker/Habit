@@ -3,3 +3,4 @@
 *.tfstate*
 .secrets
 node_modules/
+cypress/
