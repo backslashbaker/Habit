@@ -1,5 +1,6 @@
 import React from "react";
 
-export default () => {
-    return (<h1>TEST</h1>);
+const Task = () => {
+    return (<h1>TEST!</h1>);
 }
+export default Task
