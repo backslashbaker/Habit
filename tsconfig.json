@@ -1,9 +1,10 @@
 {
-    "compilerOptions": {
-        "module": "CommonJS",
-        "moduleResolution": "Node",
-        "esModuleInterop": true,
-        "outDir": "./build",
-        "target": "ES2016"
-    }
+  "compilerOptions": {
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "outDir": "./build",
+    "target": "ES2016",
+    "jsx": "react"
+  }
 }
