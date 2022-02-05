@@ -9,7 +9,7 @@ variable "environment" {
 }
 
 variable "aws-region" {
-  type = string
+  type    = string
   default = "eu-west-2"
 }
 
