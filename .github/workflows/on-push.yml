@@ -5,6 +5,16 @@ on:
       - master
 
 jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          cache: npm
+      - run: npm install
+      - run: npm run test:unit
   e2e:
     runs-on: ubuntu-latest
     steps:
@@ -24,6 +34,7 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     needs:
+      - unit
       - e2e
     steps:
       - uses: actions/checkout@v2
